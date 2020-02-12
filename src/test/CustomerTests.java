@@ -6,6 +6,8 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class CustomerTests {
@@ -18,7 +20,7 @@ public class CustomerTests {
     }
 
     @Test
-    public void ArrayInput() throws IOException {
+    public void StringInput() throws IOException {
         String commands =
                 "*input" + System.lineSeparator() +
                 "some line" + System.lineSeparator() +
@@ -30,6 +32,12 @@ public class CustomerTests {
                 "" + System.lineSeparator() +
                 "<P>|</P>";
         InterpretCommands(commands);
+    }
+
+    @Test
+    public void FileInput() throws IOException {
+        String contents = new String ( Files.readAllBytes( Paths.get("src/test/resources/notepadfileInput.txt") ) );
+        InterpretCommands(contents);
     }
 
     private void InterpretCommands(String commands) throws IOException {

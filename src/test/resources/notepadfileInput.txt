@@ -1,0 +1,9 @@
+*input
+some line
+*end
+*enter
+*display
+*output
+some line
+
+<P>|</P>
