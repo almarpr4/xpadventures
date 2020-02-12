@@ -1,0 +1,109 @@
+package company;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class TextModel {
+    private List<String> lines;
+    private int selectionStart;
+    public TextModel() {
+        lines = new ArrayList<String>();
+    }
+
+    public void InsertControlPText() {
+    }
+
+    private int LineContainingCursor() {
+        int length = 0;
+        int lineNr = 0;
+        int cr = System.lineSeparator().length();
+        for (String s: lines) {
+            if (length <= selectionStart
+                    && selectionStart < length+s.length() + cr )
+                break;
+            length += s.length() + cr;
+            lineNr++;
+        }
+        return lineNr;
+    }
+
+    public void Enter() {
+        InsertParagraphTag();
+    }
+    public void InsertParagraphTag() {
+        //
+        // On Enter, we change the TextModel lines to insert, after the line
+        // containing the cursor, a blank line, and a line with <P></P>. We set
+        // the new cursor location to be between the P tags: <P>|</P>.
+        //
+        // handle empty array special case (yucch)
+        if ( lines.size() == 0 ) {
+            lines.add( "<P></P>" );
+            selectionStart = 3;
+            return;
+        }
+
+        int index = LineContainingCursor() + 1;
+        List<String> newParagraph = NewParagraph();
+        lines.addAll(index, newParagraph);
+
+        // set cursor location
+        selectionStart = NewSelectionStart(LineContainingCursor() + 2);
+    }
+
+    private int NewSelectionStart(int cursorLine) {
+        int length = 0;
+        for (int i = 0; i < cursorLine; i++)
+            length += lines.get(i).length() + System.lineSeparator().length();
+        return length + "<p>".length();
+    }
+
+    public List LinesThroughCursor() {
+        return lines.subList(0,LineContainingCursor()+1);
+    }
+
+    public List<String> NewParagraph() {
+        List<String> temp = new ArrayList();
+        temp.add("");
+        temp.add("<P></P>");
+        return temp;
+    }
+
+    public List LinesAfterCursor() {
+        int cursorLine = LineContainingCursor();
+        return lines.subList(cursorLine+1,lines.size() - cursorLine - 1);
+    }
+
+    public String[] getLines() {
+        String[] strings = new String[lines.size()];
+        return  lines.toArray(strings);
+    }
+
+    public void setLines(String[] lines) {
+        this.lines = new ArrayList<String>(Arrays.asList(lines));
+    }
+
+    public String TestText() {
+
+        StringBuilder b = new StringBuilder();
+        for (String s : lines) {
+            b.append(s);
+            b.append(System.lineSeparator());
+        }
+        b.insert(selectionStart,"|");
+        return b.toString();
+
+    }
+
+    public int getSelectionStart() {
+        return selectionStart;
+    }
+
+    public void setSelectionStart(int selectionStart) {
+        this.selectionStart = selectionStart;
+    }
+
+
+}
+
