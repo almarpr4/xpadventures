@@ -1,3 +1,4 @@
+import company.InputCommand;
 import company.TextModel;
 import org.junit.Assert;
 import org.junit.Before;
@@ -40,6 +41,17 @@ public class CustomerTests {
         InterpretCommands(contents);
     }
 
+    @Test
+    public void FileWithACursorInTheMiddleInput() throws IOException {
+        String contents = new String ( Files.readAllBytes( Paths.get("src/test/resources/cursorinthemiddle.txt") ) );
+        InterpretCommands(contents);
+    }
+
+    @Test
+    public void FileWithACursorAtTheEndInput() throws IOException {
+        String contents = new String ( Files.readAllBytes( Paths.get("src/test/resources/cursorattheend.txt") ) );
+        InterpretCommands(contents);
+    }
     private void InterpretCommands(String commands) throws IOException {
         BufferedReader reader = new BufferedReader(new StringReader(commands));
 
@@ -60,30 +72,16 @@ public class CustomerTests {
 
 
     private void SetInput(BufferedReader reader) throws IOException {
-        String[] input = ArrayToEnd(reader);
-        model.setLines(input);
+        InputCommand input = new InputCommand(reader);
+        model.setLines(input.cleanLines());
+        model.setSelectionStart(input.selectionStart());
     }
 
-    private String[] ArrayToEnd(BufferedReader reader) throws IOException {
-        ArrayList result = new ArrayList();
-        String line = reader.readLine();
-        while (line != null && !line.equals("*end")) {
-            result.add(line.trim());
-            line = reader.readLine();
-        }
-        String[] answer = new String[result.size()];
-        result.toArray(answer);
-        return answer;
-    }
+
 
     private void CompareOutput(BufferedReader reader) throws IOException {
         String expected = ExpectedOutput(reader);
         Assert.assertEquals(expected, model.TestText());
-    }
-
-    private void CompareOutput(BufferedReader reader, String message) throws IOException {
-        String expected = ExpectedOutput(reader);
-        Assert.assertEquals(message, expected, model.TestText());
     }
 
     private String ExpectedOutput(BufferedReader reader) throws IOException {

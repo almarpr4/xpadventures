@@ -11,9 +11,6 @@ public class TextModel {
         lines = new ArrayList<String>();
     }
 
-    public void InsertControlPText() {
-    }
-
     private int LineContainingCursor() {
         int length = 0;
         int lineNr = 0;
@@ -70,11 +67,6 @@ public class TextModel {
         return temp;
     }
 
-    public List LinesAfterCursor() {
-        int cursorLine = LineContainingCursor();
-        return lines.subList(cursorLine+1,lines.size() - cursorLine - 1);
-    }
-
     public String[] getLines() {
         String[] strings = new String[lines.size()];
         return  lines.toArray(strings);
@@ -82,6 +74,10 @@ public class TextModel {
 
     public void setLines(String[] lines) {
         this.lines = new ArrayList<String>(Arrays.asList(lines));
+    }
+
+    public void setLines(List<String> lines) {
+        this.lines = new ArrayList<String>(lines);
     }
 
     public String TestText() {

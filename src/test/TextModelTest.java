@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestTextModel {
+public class TextModelTest {
 
     private TextModel model;
 
@@ -49,6 +49,12 @@ public class TestTextModel {
         model.setSelectionStart(14);
         model.InsertParagraphTag();
         assertEquals("<P>two</P>", model.getLines()[2]);
+    }
+
+    @Test
+    public void EmptyModel() {
+        model.Enter();
+        assertEquals("<P>|</P>\n", model.TestText());
     }
 /*
     @Test
