@@ -61,4 +61,11 @@ public class TextModelTest {
     public void TestLineContainingCursorDirectly() {
         // todo?
     }*/
+
+    @Test
+    public void ControlTwo() {
+        model.setLines(new String[] {"<P>The Heading</P>" });
+        model.changeToH2();
+        assertEquals("<H2>The Heading</H2>",  model.getLines()[0]);
+    }
 }

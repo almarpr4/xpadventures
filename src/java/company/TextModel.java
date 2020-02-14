@@ -3,10 +3,12 @@ package company;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class TextModel {
     private List<String> lines;
     private int selectionStart;
+
     public TextModel() {
         lines = new ArrayList<String>();
     }
@@ -15,9 +17,9 @@ public class TextModel {
         int length = 0;
         int lineNr = 0;
         int cr = System.lineSeparator().length();
-        for (String s: lines) {
+        for (String s : lines) {
             if (length <= selectionStart
-                    && selectionStart < length+s.length() + cr )
+                    && selectionStart < length + s.length() + cr)
                 break;
             length += s.length() + cr;
             lineNr++;
@@ -28,6 +30,7 @@ public class TextModel {
     public void Enter() {
         InsertParagraphTag();
     }
+
     public void InsertParagraphTag() {
         //
         // On Enter, we change the TextModel lines to insert, after the line
@@ -35,8 +38,8 @@ public class TextModel {
         // the new cursor location to be between the P tags: <P>|</P>.
         //
         // handle empty array special case (yucch)
-        if ( lines.size() == 0 ) {
-            lines.add( "<P></P>" );
+        if (lines.size() == 0) {
+            lines.add("<P></P>");
             selectionStart = 3;
             return;
         }
@@ -57,7 +60,7 @@ public class TextModel {
     }
 
     public List LinesThroughCursor() {
-        return lines.subList(0,LineContainingCursor()+1);
+        return lines.subList(0, LineContainingCursor() + 1);
     }
 
     public List<String> NewParagraph() {
@@ -69,7 +72,7 @@ public class TextModel {
 
     public String[] getLines() {
         String[] strings = new String[lines.size()];
-        return  lines.toArray(strings);
+        return lines.toArray(strings);
     }
 
     public void setLines(String[] lines) {
@@ -87,7 +90,7 @@ public class TextModel {
             b.append(s);
             b.append(System.lineSeparator());
         }
-        b.insert(selectionStart,"|");
+        b.insert(selectionStart, "|");
         return b.toString();
 
     }
@@ -101,5 +104,15 @@ public class TextModel {
     }
 
 
+    public void changeToH2() {
+        List<String> linesList = lines;
+        String oldLine = linesList.get(LineContainingCursor());
+        var r = Pattern.compile("<(?<prefix>.*)>(?<body>.*)</(?<suffix>.*)>");
+        var m = r.matcher(oldLine);
+        boolean b = m.find();
+        String newLine = "<H2>" + m.group("body") + "</H2>";
+        linesList.set(LineContainingCursor(), newLine);
+        lines = linesList;
+    }
 }
 
