@@ -53,10 +53,14 @@ public class TextModel {
     }
 
     private int NewSelectionStart(int cursorLine) {
+        return sumLineLengths(cursorLine) + "<p>".length();
+    }
+
+    private int sumLineLengths(int cursorLine) {
         int length = 0;
         for (int i = 0; i < cursorLine; i++)
             length += lines.get(i).length() + System.lineSeparator().length();
-        return length + "<p>".length();
+        return length;
     }
 
     public List<String> NewParagraph() {
@@ -134,10 +138,7 @@ public class TextModel {
     }
 
     private int NewSectionSelectionStart(int cursorLine) {
-        int length = 0;
-        for (int i = 0; i < cursorLine; i++)
-            length += lines.get(i).length() + System.lineSeparator().length();
-        return length + "<sect1><title>".length();
+        return sumLineLengths(cursorLine) + "<sect1><title>".length();
     }
 }
 
