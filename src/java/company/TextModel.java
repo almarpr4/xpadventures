@@ -17,6 +17,30 @@ public class TextModel {
         lines = new ArrayList<String>();
     }
 
+    public void Enter() {
+        InsertParagraphTag();
+    }
+
+    public void altS() {
+        InsertSectionTags();
+    }
+
+    public void InsertSectionTags() {
+        insertTags(newSection, sectionSkip);
+    }
+    public void InsertParagraphTag() {
+        insertTags(newParagraph, paragraphSkip);
+    }
+    private void insertTags(List<String> newSection, String tags) {
+        int cursorLine = LineContainingCursor();
+        lines.addAll(cursorLine + 1, newSection);
+        selectionStart = NewSelectionStart(cursorLine + 1, tags);
+    }
+
+    private int NewSelectionStart(int cursorLine, String tags) {
+        return sumLineLengths(cursorLine) + tags.length(); }
+
+
     private int LineContainingCursor() {
         if (lines.size() == 0)
             return -1;
@@ -32,25 +56,6 @@ public class TextModel {
             lineNr++;
         }
         return lineNr;
-    }
-
-    public void Enter() {
-        InsertParagraphTag();
-    }
-    private int NewSelectionStart(int cursorLine, String tags) {
-        return sumLineLengths(cursorLine) + tags.length(); }
-
-    public void InsertSectionTags() {
-        insertTags(newSection, sectionSkip);
-    }
-    public void InsertParagraphTag() {
-        insertTags(newParagraph, paragraphSkip);
-    }
-
-    private void insertTags(List<String> newSection, String tags) {
-        int cursorLine = LineContainingCursor();
-        lines.addAll(cursorLine + 1, newSection);
-        selectionStart = NewSelectionStart(cursorLine + 1, tags);
     }
 
     private int sumLineLengths(int cursorLine) {
@@ -70,18 +75,6 @@ public class TextModel {
 
     public void setLines(List<String> lines) {
         this.lines = new ArrayList<String>(lines);
-    }
-
-    public String TestText() {
-
-        StringBuilder b = new StringBuilder();
-        for (String s : lines) {
-            b.append(s);
-            b.append(System.lineSeparator());
-        }
-        b.insert(selectionStart, "|");
-        return b.toString();
-
     }
 
     public int getSelectionStart() {
@@ -104,9 +97,18 @@ public class TextModel {
         lines = linesList;
     }
 
-    public void altS() {
-        InsertSectionTags();
+    public String TestText() {
+        StringBuilder b = new StringBuilder();
+        for (String s : lines) {
+            b.append(s);
+            b.append(System.lineSeparator());
+        }
+        b.insert(selectionStart, "|");
+        return b.toString();
+
     }
+
+
 
 
 }
