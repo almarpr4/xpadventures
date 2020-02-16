@@ -39,15 +39,16 @@ public class TextModel {
         return sumLineLengths(cursorLine) + tags.length(); }
 
     public void InsertSectionTags() {
-        int cursorLine = LineContainingCursor();
-        lines.addAll( cursorLine +1, newSection);
-        selectionStart = NewSelectionStart( cursorLine + 1, "<sect1><title>");
+        insertTags(newSection, "<sect1><title>");
+    }
+    public void InsertParagraphTag() {
+        insertTags(newParagraph, "<P>");
     }
 
-    public void InsertParagraphTag() {
+    private void insertTags(List<String> newSection, String tags) {
         int cursorLine = LineContainingCursor();
-        lines.addAll( cursorLine +1, newParagraph);
-        selectionStart = NewSelectionStart( cursorLine + 1, "<P>");
+        lines.addAll(cursorLine + 1, newSection);
+        selectionStart = NewSelectionStart(cursorLine + 1, tags);
     }
 
     private int sumLineLengths(int cursorLine) {
