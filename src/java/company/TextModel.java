@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class TextModel {
+    private static final List<String> newParagraph = List.of("<P></P>");
     private List<String> lines;
     private int selectionStart;
+    private static List<String> newSection = List.of("<sect1><title></title>", "</sect1>");
 
     public TextModel() {
         lines = new ArrayList<String>();
@@ -38,13 +40,13 @@ public class TextModel {
 
     public void InsertSectionTags() {
         int cursorLine = LineContainingCursor();
-        lines.addAll( cursorLine +1, NewSection());
+        lines.addAll( cursorLine +1, newSection);
         selectionStart = NewSelectionStart( cursorLine + 1, "<sect1><title>");
     }
 
     public void InsertParagraphTag() {
         int cursorLine = LineContainingCursor();
-        lines.addAll( cursorLine +1, NewParagraph());
+        lines.addAll( cursorLine +1, newParagraph);
         selectionStart = NewSelectionStart( cursorLine + 1, "<P>");
     }
 
@@ -53,12 +55,6 @@ public class TextModel {
         for (int i = 0; i < cursorLine; i++)
             length += lines.get(i).length() + System.lineSeparator().length();
         return length;
-    }
-
-    public List<String> NewParagraph() {
-        List<String> temp = new ArrayList();
-        temp.add("<P></P>");
-        return temp;
     }
 
     public List<String> getLines() {
@@ -110,12 +106,5 @@ public class TextModel {
     }
 
 
-
-    public List<String> NewSection() {
-        List<String> temp = new ArrayList<String>();
-        temp.add("<sect1><title></title>");
-        temp.add("</sect1>");
-        return temp;
-    }
 }
 
