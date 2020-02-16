@@ -32,8 +32,8 @@ public class TextModelTest {
         model.setLines(new String[] {"hello world" });
         model.setSelectionStart(5);
         model.InsertParagraphTag();
-        assertEquals(3, model.getLines().size());
-        assertEquals(16, model.getSelectionStart());
+        assertEquals(2, model.getLines().size());
+        assertEquals(15, model.getSelectionStart());
     }
 
     @Test

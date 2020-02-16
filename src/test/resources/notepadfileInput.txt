@@ -5,5 +5,4 @@ some line
 *display
 *output
 some line
-
 <P>|</P>

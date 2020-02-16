@@ -4,5 +4,4 @@
 *enter
 *output
 <P></P>
-
 <P>|</P>

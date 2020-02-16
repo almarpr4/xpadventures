@@ -29,7 +29,6 @@ public class CustomerTests {
                 "*display" + System.lineSeparator() +
                 "*output" + System.lineSeparator() +
                 "some line" + System.lineSeparator() +
-                "" + System.lineSeparator() +
                 "<P>|</P>";
         InterpretCommands(commands);
     }
