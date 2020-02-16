@@ -31,29 +31,29 @@ public class TextModel {
         InsertParagraphTag();
     }
 
+    public void InsertSectionTags() {
+        if ( lines.size() == 0 ) {
+            lines.add( "<sect1><title></title>" );
+            lines.add( "</sect1>");
+            selectionStart = 14;
+            return;
+        }
+        lines.addAll(LineContainingCursor()+1, NewSection());
+        selectionStart = NewSelectionStart(LineContainingCursor() + 1, "<sect1><title>");
+    }
+
+    private int NewSelectionStart(int cursorLine, String tags) {
+        return sumLineLengths(cursorLine) + tags.length(); }
+
     public void InsertParagraphTag() {
-        //
-        // On Enter, we change the TextModel lines to insert, after the line
-        // containing the cursor, a blank line, and a line with <P></P>. We set
-        // the new cursor location to be between the P tags: <P>|</P>.
-        //
-        // handle empty array special case (yucch)
         if (lines.size() == 0) {
             lines.add("<P></P>");
             selectionStart = 3;
             return;
         }
 
-        int index = LineContainingCursor() + 1;
-        List<String> newParagraph = NewParagraph();
-        lines.addAll(index, newParagraph);
-
-        // set cursor location
-        selectionStart = NewSelectionStart(LineContainingCursor() + 2);
-    }
-
-    private int NewSelectionStart(int cursorLine) {
-        return sumLineLengths(cursorLine) + "<p>".length();
+        lines.addAll(LineContainingCursor() + 1, NewParagraph());
+        selectionStart = NewSelectionStart(LineContainingCursor() + 2, "<p>");
     }
 
     private int sumLineLengths(int cursorLine) {
@@ -119,26 +119,13 @@ public class TextModel {
         InsertSectionTags();
     }
 
-    public void InsertSectionTags() {
-        if ( lines.size() == 0 ) {
-            lines.add( "<sect1><title></title>" );
-            lines.add( "</sect1>");
-            selectionStart = 14;
-            return;
-        }
-        lines.addAll(LineContainingCursor()+1, NewSection());
-        selectionStart = NewSectionSelectionStart(LineContainingCursor() + 1);
-    }
+
 
     public List<String> NewSection() {
         List<String> temp = new ArrayList<String>();
         temp.add("<sect1><title></title>");
         temp.add("</sect1>");
         return temp;
-    }
-
-    private int NewSectionSelectionStart(int cursorLine) {
-        return sumLineLengths(cursorLine) + "<sect1><title>".length();
     }
 }
 
