@@ -59,10 +59,6 @@ public class TextModel {
         return length + "<p>".length();
     }
 
-    public List LinesThroughCursor() {
-        return lines.subList(0, LineContainingCursor() + 1);
-    }
-
     public List<String> NewParagraph() {
         List<String> temp = new ArrayList();
         temp.add("");
@@ -126,6 +122,22 @@ public class TextModel {
             selectionStart = 14;
             return;
         }
+        lines.addAll(LineContainingCursor()+1, NewSection());
+        selectionStart = NewSectionSelectionStart(LineContainingCursor() + 1);
+    }
+
+    public List<String> NewSection() {
+        List<String> temp = new ArrayList<String>();
+        temp.add("<sect1><title></title>");
+        temp.add("</sect1>");
+        return temp;
+    }
+
+    private int NewSectionSelectionStart(int cursorLine) {
+        int length = 0;
+        for (int i = 0; i < cursorLine; i++)
+            length += lines.get(i).length() + System.lineSeparator().length();
+        return length + "<sect1><title>".length();
     }
 }
 

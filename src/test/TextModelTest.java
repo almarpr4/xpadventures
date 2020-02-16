@@ -78,4 +78,15 @@ public class TextModelTest {
         assertEquals("<sect1><title></title>",  model.getLines()[0]);
         assertEquals("</sect1>", model.getLines()[1]);
     }
+
+
+    @Test
+    public void AltSWithText() {
+        model.setLines(new String[] {"<P></P>"});
+        model.setSelectionStart(7);
+        model.altS();
+        assertEquals("<sect1><title></title>",  model.getLines()[1]);
+        assertEquals("</sect1>", model.getLines()[2]);
+        assertEquals(22, model.getSelectionStart());
+    }
 }
