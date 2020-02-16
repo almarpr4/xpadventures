@@ -37,14 +37,9 @@ public class TextModel {
         return sumLineLengths(cursorLine) + tags.length(); }
 
     public void InsertSectionTags() {
-        if ( lines.size() == 0 ) {
-            lines.add( "<sect1><title></title>" );
-            lines.add( "</sect1>");
-            selectionStart = 14;
-            return;
-        }
-        lines.addAll(LineContainingCursor()+1, NewSection());
-        selectionStart = NewSelectionStart(LineContainingCursor() + 1, "<sect1><title>");
+        int cursorLine = LineContainingCursor();
+        lines.addAll( cursorLine +1, NewSection());
+        selectionStart = NewSelectionStart( cursorLine + 1, "<sect1><title>");
     }
 
     public void InsertParagraphTag() {
