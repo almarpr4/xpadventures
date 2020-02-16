@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
 
 public class TextModel {
     private static final List<String> newParagraph = List.of("<P></P>");
+    public static final String sectionSkip = "<sect1><title>";
+    public static final String paragraphSkip = "<P>";
     private List<String> lines;
     private int selectionStart;
     private static List<String> newSection = List.of("<sect1><title></title>", "</sect1>");
@@ -39,10 +41,10 @@ public class TextModel {
         return sumLineLengths(cursorLine) + tags.length(); }
 
     public void InsertSectionTags() {
-        insertTags(newSection, "<sect1><title>");
+        insertTags(newSection, sectionSkip);
     }
     public void InsertParagraphTag() {
-        insertTags(newParagraph, "<P>");
+        insertTags(newParagraph, paragraphSkip);
     }
 
     private void insertTags(List<String> newSection, String tags) {
