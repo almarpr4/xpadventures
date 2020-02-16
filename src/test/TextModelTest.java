@@ -18,13 +18,13 @@ public class TextModelTest {
     @Test
     public void TestNoLines() {
         model.setLines(new String[0]);
-        assertEquals(0, model.getLines().length);
+        assertEquals(0, model.getLines().size());
     }
 
     @Test
     public void TestNoProcessing() {
         model.setLines(new String[] { "hi", "there", "chet"});
-        assertEquals(3, model.getLines().length);
+        assertEquals(3, model.getLines().size());
     }
 
     @Test
@@ -32,7 +32,7 @@ public class TextModelTest {
         model.setLines(new String[] {"hello world" });
         model.setSelectionStart(5);
         model.InsertParagraphTag();
-        assertEquals(3, model.getLines().length);
+        assertEquals(3, model.getLines().size());
         assertEquals(16, model.getSelectionStart());
     }
 
@@ -40,7 +40,7 @@ public class TextModelTest {
     public void TestEmptyText() {
         model.setLines(new String[0]);
         model.InsertParagraphTag();
-        assertEquals(1, model.getLines().length);
+        assertEquals(1, model.getLines().size());
         assertEquals(3, model.getSelectionStart());
     }
 
@@ -50,7 +50,7 @@ public class TextModelTest {
         model.setLines(new String[] { "<P>one</P>", "", "<P>two</P>"});
         model.setSelectionStart(14);
         model.InsertParagraphTag();
-        assertEquals("<P>two</P>", model.getLines()[2]);
+        assertEquals("<P>two</P>", model.getLines().get(2));
     }
 
     @Test
@@ -68,15 +68,15 @@ public class TextModelTest {
     public void ControlTwo() {
         model.setLines(new String[] {"<P>The Heading</P>" });
         model.changeToH2();
-        assertEquals("<H2>The Heading</H2>",  model.getLines()[0]);
+        assertEquals("<H2>The Heading</H2>",  model.getLines().get(0));
     }
 
     @Test
     public void ControlS() {
         model.setLines(new ArrayList<String>());
         model.altS();
-        assertEquals("<sect1><title></title>",  model.getLines()[0]);
-        assertEquals("</sect1>", model.getLines()[1]);
+        assertEquals("<sect1><title></title>",  model.getLines().get(0));
+        assertEquals("</sect1>", model.getLines().get(1));
     }
 
 
@@ -85,8 +85,8 @@ public class TextModelTest {
         model.setLines(new String[] {"<P></P>"});
         model.setSelectionStart(7);
         model.altS();
-        assertEquals("<sect1><title></title>",  model.getLines()[1]);
-        assertEquals("</sect1>", model.getLines()[2]);
+        assertEquals("<sect1><title></title>",  model.getLines().get(1));
+        assertEquals("</sect1>", model.getLines().get(2));
         assertEquals(22, model.getSelectionStart());
     }
 }

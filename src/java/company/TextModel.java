@@ -70,9 +70,8 @@ public class TextModel {
         return temp;
     }
 
-    public String[] getLines() {
-        String[] strings = new String[lines.size()];
-        return lines.toArray(strings);
+    public List<String> getLines() {
+        return lines;
     }
 
     public void setLines(String[] lines) {
