@@ -1,0 +1,8 @@
+*input
+<P></P>
+*end
+*enter
+*output
+<P></P>
+
+<P>|</P>

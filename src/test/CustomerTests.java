@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 public class CustomerTests {
 
@@ -44,6 +43,12 @@ public class CustomerTests {
     @Test
     public void FileWithACursorInTheMiddleInput() throws IOException {
         String contents = new String ( Files.readAllBytes( Paths.get("src/test/resources/cursorinthemiddle.txt") ) );
+        InterpretCommands(contents);
+    }
+
+    @Test
+    public void ParagraphAfterParagraph() throws IOException {
+        String contents = new String ( Files.readAllBytes( Paths.get("src/test/resources/paragraphafterparagraph.txt") ) );
         InterpretCommands(contents);
     }
 
