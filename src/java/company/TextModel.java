@@ -115,7 +115,7 @@ public class TextModel {
         lines = linesList;
     }
 
-    public void ControlS() {
+    public void altS() {
         InsertSectionTags();
     }
 

@@ -71,7 +71,7 @@ public class CustomerTests {
             if (line.equals("*enter"))
                 model.Enter();
             if ( line.equals("*controlS"))
-                model.ControlS();
+                model.altS();
             if (line.equals("*display"))
                 System.out.print(String.format("display\n%s\n", model.TestText()));
             if (line.equals("*output"))

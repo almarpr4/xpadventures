@@ -74,7 +74,7 @@ public class TextModelTest {
     @Test
     public void ControlS() {
         model.setLines(new ArrayList<String>());
-        model.ControlS();
+        model.altS();
         assertEquals("<sect1><title></title>",  model.getLines()[0]);
         assertEquals("</sect1>", model.getLines()[1]);
     }
