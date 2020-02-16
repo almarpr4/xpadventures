@@ -2,6 +2,8 @@ import company.TextModel;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 
 public class TextModelTest {
@@ -67,5 +69,13 @@ public class TextModelTest {
         model.setLines(new String[] {"<P>The Heading</P>" });
         model.changeToH2();
         assertEquals("<H2>The Heading</H2>",  model.getLines()[0]);
+    }
+
+    @Test
+    public void ControlS() {
+        model.setLines(new ArrayList<String>());
+        model.ControlS();
+        assertEquals("<sect1><title></title>",  model.getLines()[0]);
+        assertEquals("</sect1>", model.getLines()[1]);
     }
 }

@@ -114,5 +114,18 @@ public class TextModel {
         linesList.set(LineContainingCursor(), newLine);
         lines = linesList;
     }
+
+    public void ControlS() {
+        InsertSectionTags();
+    }
+
+    public void InsertSectionTags() {
+        if ( lines.size() == 0 ) {
+            lines.add( "<sect1><title></title>" );
+            lines.add( "</sect1>");
+            selectionStart = 14;
+            return;
+        }
+    }
 }
 

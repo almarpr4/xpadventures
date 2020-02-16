@@ -53,6 +53,12 @@ public class CustomerTests {
     }
 
     @Test
+    public void section1() throws IOException {
+        String contents = new String ( Files.readAllBytes( Paths.get("src/test/resources/section1.txt") ) );
+        InterpretCommands(contents);
+    }
+
+    @Test
     public void FileWithACursorAtTheEndInput() throws IOException {
         String contents = new String ( Files.readAllBytes( Paths.get("src/test/resources/cursorattheend.txt") ) );
         InterpretCommands(contents);
@@ -64,6 +70,8 @@ public class CustomerTests {
         while ( line != null) {
             if (line.equals("*enter"))
                 model.Enter();
+            if ( line.equals("*controlS"))
+                model.ControlS();
             if (line.equals("*display"))
                 System.out.print(String.format("display\n%s\n", model.TestText()));
             if (line.equals("*output"))
