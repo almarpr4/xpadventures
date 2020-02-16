@@ -14,6 +14,9 @@ public class TextModel {
     }
 
     private int LineContainingCursor() {
+        if (lines.size() == 0)
+            return -1;
+
         int length = 0;
         int lineNr = 0;
         int cr = System.lineSeparator().length();
@@ -45,14 +48,9 @@ public class TextModel {
     }
 
     public void InsertParagraphTag() {
-        if (lines.size() == 0) {
-            lines.add("<P></P>");
-            selectionStart = 3;
-            return;
-        }
-
-        lines.addAll(LineContainingCursor() + 1, NewParagraph());
-        selectionStart = NewSelectionStart(LineContainingCursor() + 1, "<p>");
+        int cursorLine = LineContainingCursor();
+        lines.addAll( cursorLine +1, NewParagraph());
+        selectionStart = NewSelectionStart( cursorLine + 1, "<P>");
     }
 
     private int sumLineLengths(int cursorLine) {
