@@ -13,6 +13,9 @@ public class TextModel {
     private int selectionStart;
     private static List<String> newSection = List.of("<sect1><title></title>", "</sect1>");
 
+    private static List<String> newPre = List.of( "<pre></pre>");
+    private static String preSkip = "<pre>";
+
     public TextModel() {
         lines = new ArrayList<String>();
     }
@@ -109,7 +112,12 @@ public class TextModel {
     }
 
 
+    public void InsertPreTag() {
+        insertTags(newPre, preSkip);
+    }
 
-
+    public void AltP() {
+        InsertPreTag();
+    }
 }
 

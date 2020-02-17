@@ -62,6 +62,13 @@ public class CustomerTests {
         String contents = new String ( Files.readAllBytes( Paths.get("src/test/resources/cursorattheend.txt") ) );
         InterpretCommands(contents);
     }
+
+    @Test
+    public void FileWithPre() throws IOException {
+        String contents = new String ( Files.readAllBytes( Paths.get("src/test/resources/preinmiddlecursor.txt") ) );
+        InterpretCommands(contents);
+    }
+
     private void InterpretCommands(String commands) throws IOException {
         BufferedReader reader = new BufferedReader(new StringReader(commands));
 
@@ -71,6 +78,8 @@ public class CustomerTests {
                 model.Enter();
             if ( line.equals("*controlS"))
                 model.altS();
+            if ( line.equals("*altP"))
+                model.AltP();
             if (line.equals("*display"))
                 System.out.print(String.format("display\n%s\n", model.TestText()));
             if (line.equals("*output"))

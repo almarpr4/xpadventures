@@ -89,4 +89,14 @@ public class TextModelTest {
         assertEquals("</sect1>", model.getLines().get(2));
         assertEquals(22, model.getSelectionStart());
     }
+
+
+    @Test
+    public void InsertPre() {
+        model.setLines(new String[] {"<P></P>"});
+        model.setSelectionStart(7);
+        model.InsertPreTag();
+        assertEquals("<pre></pre>", model.getLines().get(1));
+        assertEquals(13, model.getSelectionStart());
+    }
 }
