@@ -41,7 +41,7 @@ public class TextModel {
     }
 
     private int NewSelectionStart(int cursorLine, String tags) {
-        return sumLineLengths(cursorLine) + tags.length(); }
+        return firstPositionOfLine(cursorLine) + tags.length(); }
 
 
     private int LineContainingCursor() {
@@ -61,7 +61,7 @@ public class TextModel {
         return lineNr;
     }
 
-    private int sumLineLengths(int cursorLine) {
+    private int firstPositionOfLine(int cursorLine) {
         int length = 0;
         for (int i = 0; i < cursorLine; i++)
             length += lines.get(i).length() + System.lineSeparator().length();
@@ -119,5 +119,31 @@ public class TextModel {
     public void AltP() {
         InsertPreTag();
     }
+
+    public void InsertReturn() {
+        String front = FrontOfCursorLine();
+        String back = BackOfCursorLine();
+        lines.set(LineContainingCursor(),front);
+        lines.add(LineContainingCursor()+1, back);
+        selectionStart += System.lineSeparator().length();
+    }
+
+
+    public String FrontOfCursorLine() {
+        String line = lines.get(LineContainingCursor());
+        int position = positionOfCursorInLine();
+        return line.substring(0, position);
+    }
+
+    public int positionOfCursorInLine() {
+        return selectionStart - firstPositionOfLine(LineContainingCursor());
+    }
+
+    public String BackOfCursorLine() {
+        String line = lines.get(LineContainingCursor());
+        int position = positionOfCursorInLine();
+        return line.substring( position );
+    }
+
 }
 

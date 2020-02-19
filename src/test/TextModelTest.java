@@ -93,10 +93,25 @@ public class TextModelTest {
 
     @Test
     public void InsertPre() {
-        model.setLines(new String[] {"<P></P>"});
+        model.setLines (new String[] {"<P></P>"});
         model.setSelectionStart(7);
         model.InsertPreTag();
         assertEquals("<pre></pre>", model.getLines().get(1));
         assertEquals(13, model.getSelectionStart());
+        model.InsertReturn();
+        assertEquals("<pre>", model.getLines().get(1));
+        assertEquals("</pre>", model.getLines().get(2));
+        assertEquals(14, model.getSelectionStart());
     }
+
+    @Test
+    public void CursorPosition() {
+        model.setLines (new String[] { "<P></P>", "<pre></pre>" });
+        model.setSelectionStart(13); // after <pre>
+        assertEquals(5, model.positionOfCursorInLine());
+        assertEquals("<pre>", model.FrontOfCursorLine());
+        assertEquals("</pre>", model.BackOfCursorLine());
+    }
+
+
 }
