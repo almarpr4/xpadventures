@@ -90,20 +90,6 @@ public class TextModelTest {
         assertEquals(22, model.getSelectionStart());
     }
 
-
-    @Test
-    public void InsertPre() {
-        model.setLines (new String[] {"<P></P>"});
-        model.setSelectionStart(7);
-        model.InsertPreTag();
-        assertEquals("<pre></pre>", model.getLines().get(1));
-        assertEquals(13, model.getSelectionStart());
-        model.InsertReturn();
-        assertEquals("<pre>", model.getLines().get(1));
-        assertEquals("</pre>", model.getLines().get(2));
-        assertEquals(14, model.getSelectionStart());
-    }
-
     @Test
     public void CursorPosition() {
         model.setLines (new String[] { "<P></P>", "<pre></pre>" });
@@ -111,6 +97,25 @@ public class TextModelTest {
         assertEquals(5, model.positionOfCursorInLine());
         assertEquals("<pre>", model.FrontOfCursorLine());
         assertEquals("</pre>", model.BackOfCursorLine());
+    }
+
+    @Test
+    public void InsertPre() {
+        model.setLines(new String[]{"<P></P>"});
+        model.setSelectionStart(7);
+        model.InsertPreTag();
+        assertEquals("<pre></pre>", model.getLines().get(1));
+        assertEquals(13, model.getSelectionStart());
+    }
+
+    @Test
+    public void shiftEnter(){
+        model.setLines(new String[] {"<pre></pre>"});
+        model.setSelectionStart(5);
+        model.InsertReturn();
+        assertEquals("<pre>", model.getLines().get(0));
+        assertEquals("</pre>", model.getLines().get(1));
+        assertEquals(6, model.getSelectionStart());
     }
 
 
