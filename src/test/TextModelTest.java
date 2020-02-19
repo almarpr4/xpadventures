@@ -1,5 +1,6 @@
 import company.TextModel;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -116,6 +117,16 @@ public class TextModelTest {
         assertEquals("<pre>", model.getLines().get(0));
         assertEquals("</pre>", model.getLines().get(1));
         assertEquals(6, model.getSelectionStart());
+    }
+
+    @Test
+    @Ignore
+    public void ShiftEnterMultipleLines() {
+        model.setLines(new String[] {"<pre>code1", "code2","code3</pre>"});
+        model.setSelectionStart(14); // after 'co' in 'code2'
+        model.InsertParagraphTag();
+        assertEquals("code3</pre>", model.getLines().get(2));
+        assertEquals("<P></P>", model.getLines().get(3));
     }
 
 
