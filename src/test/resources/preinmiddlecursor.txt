@@ -7,3 +7,10 @@
 <P>This is the first paragraph.</P>
 <pre>|</pre>
 <P>This is the second paragraph.</P>
+*end
+*shiftEnter
+*output
+<P>This is the first paragraph.</P>
+<pre>
+|</pre>
+<P>This is the second paragraph.</P>

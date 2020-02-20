@@ -80,6 +80,8 @@ public class CustomerTests {
                 model.altS();
             if ( line.equals("*altP"))
                 model.AltP();
+            if ( line.equals("*shiftEnter"))
+                model.InsertReturn();
             if (line.equals("*display"))
                 System.out.print(String.format("display\n%s\n", model.TestText()));
             if (line.equals("*output"))
@@ -102,6 +104,14 @@ public class CustomerTests {
 
     private void CompareOutput(BufferedReader reader) throws IOException {
         String expected = ExpectedOutput(reader);
+        String result = model.TestText();
+        if (!expected.equalsIgnoreCase(result)) {
+            System.out.println("*Expected");
+            System.out.println(expected);
+            System.out.println("*Result");
+            System.out.println(result);
+
+        }
         Assert.assertEquals(expected, model.TestText());
     }
 
