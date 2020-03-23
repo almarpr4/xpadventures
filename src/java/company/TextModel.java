@@ -1,5 +1,6 @@
 package company;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -145,5 +146,8 @@ public class TextModel {
         return line.substring( position );
     }
 
+    public void save(StringWriter w) {
+        lines.forEach(l -> w.write(l+System.lineSeparator()));
+    }
 }
 

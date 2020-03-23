@@ -3,6 +3,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
@@ -127,6 +128,14 @@ public class TextModelTest {
         model.InsertParagraphTag();
         assertEquals("code3</pre>", model.getLines().get(2));
         assertEquals("<P></P>", model.getLines().get(3));
+    }
+
+    @Test
+    public void writeStream(){
+        model.setLines (new String[] { "<P></P>"});
+        StringWriter w = new StringWriter();
+        model.save(w);
+        assertEquals("<P></P>\n", w.toString());
     }
 
 
